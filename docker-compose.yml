@@ -1,0 +1,8 @@
+version: "3.6"
+services:
+  redd-share:
+    container_name: redd-share
+    image: shroomlife/redd-share:latest
+    build: .
+    ports:
+      - "80:80"

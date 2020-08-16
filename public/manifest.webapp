@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "name": "Redd Sharer",
+  "description": "A simple App for testing PWA sharing capabilities on different devices and operating systems.",
+  "icons": {
+    "60": "/img/icons/firefox_app_60x60.png",
+    "128": "/img/icons/firefox_app_128x128.png",
+    "512": "/img/icons/firefox_app_512x512.png"
+  },
+  "developer": {
+    "name": null,
+    "url": null
+  },
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
