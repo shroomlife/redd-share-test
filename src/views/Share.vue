@@ -190,9 +190,6 @@ export default {
     loadShare () {
       this.$root.RunningApp.startLoader()
 
-      this.$route.query.text =
-        'https://www.facebook.com/BabylonDecoded/posts/3424827147539190?__cft__[0]=AZWon1U2K13x1x-04q6ZOxAnKnQn5JDvnpYIaYnv6fL48n4JXmyEQiKI6DSanjDPrG8UzJvDvb87VMMQSBFJoW1EzAQ9IYBT7KZP4FaEUre1RELgiIS0IHbAyfqBoZkQciaip97N0XAknIR3COjxAsRg2-4giztB5LeVjWc0PAiUp1IEAUIOybCrQYqd8zPkevxXq0gEjN3IucxSQMFR117YXu_T86r7Q_4HZntyEkbDXQ&__tn__=%2CO%2CP-R'
-
       if (typeof this.$route.query.text === 'undefined') {
         this.$swal('Error', 'No tippable Share could be found.', 'error')
         this.$root.RunningApp.stopLoader()
@@ -339,5 +336,8 @@ a.share-link {
   max-width: 640px;
   display: inline-block;
   white-space: nowrap;
+}
+iframe {
+  max-width: 100%;
 }
 </style>
