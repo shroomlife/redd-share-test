@@ -22,22 +22,19 @@ register(`${process.env.BASE_URL}service-worker.js`, {
     )
   },
   registered () {
-    console.log('Service worker has been registered.')
+    triggerPWAEvent('registered')
   },
   cached () {
     triggerPWAEvent('cached')
-    console.log('Content has been cached for offline use.')
   },
   updatefound () {
     triggerPWAEvent('updatefound')
-    console.log('New content is downloading.')
   },
   updated () {
     triggerPWAEvent('updated')
-    console.log('New content is available; please refresh.')
   },
   offline () {
-    console.log('No internet connection found. App is running in offline mode.')
+    triggerPWAEvent('offline')
   },
   error (error) {
     console.error('Error during service worker registration:', error)

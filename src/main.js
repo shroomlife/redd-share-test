@@ -6,13 +6,11 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import VueSweetalert2 from 'vue-sweetalert2'
-import EvaIcons from 'vue-eva-icons'
 
 import 'sweetalert2/dist/sweetalert2.min.css'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
 Vue.use(VueSweetalert2)
-Vue.use(EvaIcons)
 
 Vue.config.productionTip = false
 

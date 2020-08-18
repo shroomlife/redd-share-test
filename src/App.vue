@@ -1,25 +1,26 @@
 <template>
   <div id="app">
-
-        <loading :active.sync="isLoading" :is-full-page="true"></loading>
+    <loading :active.sync="isLoading" :is-full-page="true"></loading>
 
     <b-navbar toggleable="lg" type="dark" variant="light">
-      <b-navbar-brand href="/">
-        <img src="./assets/logo32.png" height="32" />
-      </b-navbar-brand>
+      <div class="container">
+        <b-navbar-brand href="/">
+          <img src="./assets/logo32.png" height="32" />
+        </b-navbar-brand>
+      </div>
     </b-navbar>
 
     <div class="container pt-3">
       <router-view />
     </div>
 
-    <footer class="footer">
+    <footer class="footer" type="dark" variant="light">
       <div class="container">
         <div class="row">
           <div class="col-4">
             <span class="text-muted">Version: {{pkg.version}}</span>
           </div>
-          <div class="col-8" v-if="pwa.updateExists">
+          <div class="col-8" v-if="isUpdateAvailable">
             <div class="row">
               <div class="col-7">
                 <strong>Update available!</strong>
@@ -28,7 +29,6 @@
                 <button class="btn btn-primary" @click.prevent="doUpdate">Apply</button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -43,6 +43,8 @@
     </div>
     <router-view />
     -->
+
+    <div id="fb-root"></div>
   </div>
 </template>
 
@@ -59,7 +61,8 @@ export default {
     return {
       shares: [],
       pwa: {
-        updateExists: false
+        updatefound: false,
+        cached: false
       },
       isLoading: false
     }
@@ -71,12 +74,18 @@ export default {
     computedShares () {
       const shares = this.shares.slice(0)
       return shares.reverse()
+    },
+    isUpdateAvailable () {
+      return this.pwa.updatefound && !this.pwa.cached
     }
   },
   created: function () {
     document.addEventListener('customServiceWorkerEvent', (event) => {
       if (event.detail && event.detail.name === 'updatefound') {
-        this.pwa.updateExists = true
+        this.pwa.updatefound = true
+      }
+      if (event.detail && event.detail.name === 'cached') {
+        this.pwa.cached = true
       }
     })
   },
@@ -93,16 +102,22 @@ export default {
     getStorage () {
       const storageContent = localStorage.getItem('REDD_SHARE_STORAGE')
       if (storageContent === null) {
-        localStorage.setItem('REDD_SHARE_STORAGE', JSON.stringify({
-          shares: this.shares
-        }))
+        localStorage.setItem(
+          'REDD_SHARE_STORAGE',
+          JSON.stringify({
+            shares: this.shares
+          })
+        )
       }
       return JSON.parse(localStorage.getItem('REDD_SHARE_STORAGE')) || {}
     },
     saveStorage () {
-      localStorage.setItem('REDD_SHARE_STORAGE', JSON.stringify({
-        shares: this.shares
-      }))
+      localStorage.setItem(
+        'REDD_SHARE_STORAGE',
+        JSON.stringify({
+          shares: this.shares
+        })
+      )
     },
     saveTip (url, platform, amount) {
       this.shares.push({

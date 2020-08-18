@@ -11,7 +11,7 @@
           <div class="card p-3 mb-3">
             <div class="row">
               <div class="col-6">
-                <eva-icon :name="getIcon(share.platform)" fill="#1DA1F2"></eva-icon>
+                <img :src="getIcon(share.platform)" width="26" class="mr-2" />
                 <span>{{capitalize(share.platform)}}</span>
               </div>
               <div class="col-6 text-right">
@@ -20,9 +20,7 @@
               <div class="col-12 share-link">
                 <a :href="share.url" target="_blank">{{share.url}}</a>
               </div>
-              <div class="col-12">
-                {{getFromNow(share.created)}}
-              </div>
+              <div class="col-12">{{getFromNow(share.created)}}</div>
             </div>
           </div>
         </div>
@@ -39,10 +37,7 @@ export default {
   mounted: function () {},
   methods: {
     getIcon (platform) {
-      switch (platform) {
-        case 'twitter':
-          return 'twitter'
-      }
+      return require(`../assets/social/${platform}.svg`)
     },
     capitalize (name) {
       return name.charAt(0).toUpperCase() + name.slice(1)
@@ -64,7 +59,7 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
-  display: block;
+  display: inline-block;
   white-space: nowrap;
 }
 .amount-value {
